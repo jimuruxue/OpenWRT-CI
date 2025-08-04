@@ -160,7 +160,11 @@ jobs:
 
       - name: Custom Settings
         run: |
+
+          . $GITHUB_WORKSPACE/Scripts/function.sh
           cd ./wrt/
+        
+          generate_config && cat .config  
 
           if [[ "${WRT_CONFIG,,}" == *"test"* ]]; then
             cat $GITHUB_WORKSPACE/Config/$WRT_CONFIG.txt >> .config
@@ -228,24 +232,17 @@ jobs:
           tag_name: ${{env.WRT_CONFIG}}-${{env.WRT_INFO}}-${{env.WRT_BRANCH}}-${{env.WRT_DATE}}
           files: ./wrt/upload/*.*
           body: |
-            这是个平台固件包，内含多个设备！
-            请注意选择你需要的设备固件！
-            不要问，刷就完事了！
-
-            全系带开源硬件加速，别问了！
-
-            源码：${{env.WRT_REPO}}
-            分支：${{env.WRT_BRANCH}}
-            提交：${{env.WRT_HASH}}
-
-            配置：${{env.WRT_CONFIG}}
-            平台：${{env.WRT_TARGET}}
-
-            登录地址：${{env.WRT_IP}}
-            登录密码：${{env.WRT_PW}}
-
-            WIFI名称：${{env.WRT_SSID}}
-            WIFI密码：${{env.WRT_WORD}}
-
-            内核版本：${{env.WRT_KVER}}
-            插件列表：${{env.WRT_LIST}}
+            ### 📒 固件信息
+            - 这是带WIFI以及NSS的固件，默认主题为Argon
+            - 💻 这是 ${{env.WRT_TARGET}} 平台使用的 OpenWrt 固件
+            - ⚽ 固件源码: ${{env.WRT_REPO}}
+            - 💝 源码分支: ${{env.WRT_BRANCH}}
+            - 🌐 默认地址: ${{env.WRT_IP}}
+            - 🔑 默认密码: ${{env.WRT_PW}}
+            - 🌐 WIFI名称：${{env.WRT_SSID}}
+            - 🔑 WIFI密码：${{env.WRT_WORD}}
+            ### 🧊 固件版本
+            - 固件内核版本：**${{env.WRT_KVER}}**
+            - 固件编译前最后一次➦[主源码](${{ env.REPO_URL }})更新记录
+            - 提交：${{env.WRT_HASH}}
+            - 插件列表：${{env.WRT_LIST}}
