@@ -152,3 +152,4 @@ update_argon() {
     echo "luci-theme-argon 更新完成"
     echo "Argon 更新完毕。"
 }
+update_argon
