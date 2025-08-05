@@ -132,6 +132,20 @@ remove_uhttpd_dependency() {
     fi
 }
 
+update_cpufreq_config() {
+    local path="$GITHUB_WORKSPACE/wrt/feeds/luci/applications/luci-app-cpufreq"
+    local po_file="$path/po/zh_Hans/cpufreq.po"
+
+    if [ -d "$path" ] && [ -f "$po_file" ]; then
+        sed -i 's/msgstr "CPU 性能优化调节"/msgstr "性能调节"/g' "$po_file"
+        echo "Modification completed for $po_file"
+    else
+        echo "Error: Directory or PO file not found at $path"
+        return 1
+    fi
+}
+
 install_opkg_distfeeds
 custom_v2ray_geodata
 remove_uhttpd_dependency
+update_cpufreq_config
