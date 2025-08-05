@@ -145,7 +145,60 @@ update_cpufreq_config() {
     fi
 }
 
+update_argon_config() {
+    #local path="$GITHUB_WORKSPACE/wrt/feeds/luci/applications/luci-app-argon-config"
+    local path="./luci-theme-argon/luci-app-argon-config"
+    local po_file="$path/po/zh_Hans/argon-config.po"
+
+    if [ -d "$path" ] && [ -f "$po_file" ]; then
+        sed -i 's/msgstr "Argon 主题设置"/msgstr "主题设置"/g' "$po_file"
+        echo "Modification completed for $po_file"
+    else
+        echo "Error: Directory or PO file not found at $path"
+        return 1
+    fi
+}
+
+add_quickfile() {
+    local repo_url="https://github.com/sbwml/luci-app-quickfile.git"
+    local target_dir="$GITHUB_WORKSPACE/wrt/package/emortal/quickfile"
+    if [ -d "$target_dir" ]; then
+        rm -rf "$target_dir"
+    fi
+    git clone --depth 1 "$repo_url" "$target_dir"
+
+    local makefile_path="$target_dir/quickfile/Makefile"
+    if [ -f "$makefile_path" ]; then
+        sed -i '/\t\$(INSTALL_BIN) \$(PKG_BUILD_DIR)\/quickfile-\$(ARCH_PACKAGES)/c\
+\tif [ "\$(ARCH_PACKAGES)" = "x86_64" ]; then \\\
+\t\t\$(INSTALL_BIN) \$(PKG_BUILD_DIR)\/quickfile-x86_64 \$(1)\/usr\/bin\/quickfile; \\\
+\telse \\\
+\t\t\$(INSTALL_BIN) \$(PKG_BUILD_DIR)\/quickfile-aarch64_generic \$(1)\/usr\/bin\/quickfile; \\\
+\tfi' "$makefile_path"
+    fi
+}
+
+update_argon() {
+    local repo_url="https://github.com/jjm2473/luci-theme-argon.git"
+    local dst_theme_path="../feeds/luci/themes/luci-theme-argon"
+    local tmp_dir=$(mktemp -d)
+
+    echo "正在更新 argon 主题..."
+
+    git clone --depth 1 "$repo_url" "$tmp_dir"
+
+    rm -rf "$dst_theme_path"
+    rm -rf "$tmp_dir/.git"
+    mv "$tmp_dir" "$dst_theme_path"
+
+    echo "luci-theme-argon 更新完成"
+    echo "Argon 更新完毕。"
+}
+
 install_opkg_distfeeds
 custom_v2ray_geodata
 remove_uhttpd_dependency
 update_cpufreq_config
+update_argon_config
+add_quickfile
+update_argon
