@@ -70,6 +70,8 @@ function generate_config() {
   #增加ebpf
   cat_ebpf_config $config_file
   set_kernel_size
+  #增加内核选项
+  cat_kernel_config "target/linux/qualcommax/${target}/config-default"
 }
 
 
