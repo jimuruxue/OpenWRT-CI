@@ -80,7 +80,7 @@ wget "https://gist.githubusercontent.com/puteulanus/1c180fae6bccd25e57eb6d30b7aa
 
 # 安装opkg distfeeds
 install_opkg_distfeeds() {
-    local emortal_def_dir="$GITHUB_WORKSPACE/$WRT_DIR/package/emortal/default-settings"
+    local emortal_def_dir="$PKG_PATH/emortal/default-settings"
     local distfeeds_conf="$emortal_def_dir/files/99-distfeeds.conf"
 
     if [ -d "$emortal_def_dir" ] && [ ! -f "$distfeeds_conf" ]; then
