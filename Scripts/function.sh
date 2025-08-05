@@ -34,10 +34,7 @@ EOF
 }
 
 function cat_ebpf_config() {
-
-#ebpf相关
   cat >> $1 <<EOF
-#eBPF
 CONFIG_DEVEL=y
 CONFIG_KERNEL_DEBUG_INFO=y
 CONFIG_KERNEL_DEBUG_INFO_REDUCED=n
