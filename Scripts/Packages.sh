@@ -73,6 +73,7 @@ UPDATE_PACKAGE "luci-app-3ginfo-lite" "4IceG/luci-app-3ginfo-lite" "main"
 UPDATE_PACKAGE "qmodem" "FUjr/QModem" "main"
 UPDATE_PACKAGE "viking" "VIKINGYFY/packages" "main" "" "luci-app-timewol luci-app-wolplus"
 UPDATE_PACKAGE "vnt" "lmq8267/luci-app-vnt" "main"
+
 #quickstart
 UPDATE_PACKAGE "taskd" "kenzok8/small-package" "main" "pkg"
 UPDATE_PACKAGE "luci-lib-xterm" "kenzok8/small-package" "main" "pkg"
