@@ -135,21 +135,3 @@ UPDATE_VERSION() {
 #UPDATE_VERSION "软件包名" "测试版，true，可选，默认为否"
 #UPDATE_VERSION "sing-box"
 #UPDATE_VERSION "tailscale"
-
-update_argon() {
-    local repo_url="https://github.com/jjm2473/luci-theme-argon.git"
-    local dst_theme_path="../feeds/luci/themes/luci-theme-argon"
-    local tmp_dir=$(mktemp -d)
-
-    echo "正在更新 argon 主题..."
-
-    git clone --depth 1 "$repo_url" "$tmp_dir"
-
-    rm -rf "$dst_theme_path"
-    rm -rf "$tmp_dir/.git"
-    mv "$tmp_dir" "$dst_theme_path"
-
-    echo "luci-theme-argon 更新完成"
-    echo "Argon 更新完毕。"
-}
-update_argon
