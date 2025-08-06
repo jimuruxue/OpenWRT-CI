@@ -146,8 +146,7 @@ update_cpufreq_config() {
 }
 
 update_argon_config() {
-    #local path="$GITHUB_WORKSPACE/wrt/feeds/luci/applications/luci-app-argon-config"
-    local path="./luci-theme-argon/luci-app-argon-config"
+    local path="$GITHUB_WORKSPACE/wrt/feeds/luci/applications/luci-app-argon-config"
     local po_file="$path/po/zh_Hans/argon-config.po"
 
     if [ -d "$path" ] && [ -f "$po_file" ]; then
