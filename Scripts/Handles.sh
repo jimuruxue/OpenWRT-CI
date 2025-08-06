@@ -24,6 +24,16 @@ if [ -d *"homeproxy"* ]; then
 	cd $PKG_PATH && echo "homeproxy date has been updated!"
 fi
 
+#修改argon主题设置
+ARGON_FILE="$GITHUB_WORKSPACE/wrt/feeds/luci/applications/luci-app-argon-config/root/etc/config/argon"
+if [ -f "$ARGON_FILE" ]; then
+	echo " "
+
+	sed -i "s/'0.3'/'0.5'/; s/'bing'/'none'/; s/'0'/'10'/" $ARGON_FILE
+
+	cd $PKG_PATH && echo "theme-argon has been fixed!"
+fi
+
 #修改qca-nss-drv启动顺序
 NSS_DRV="../feeds/nss_packages/qca-nss-drv/files/qca-nss-drv.init"
 if [ -f "$NSS_DRV" ]; then
