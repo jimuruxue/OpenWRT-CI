@@ -216,7 +216,7 @@ update_argon_background() {
 }
 
 install_opkg_distfeeds
-#custom_v2ray_geodata
+custom_v2ray_geodata
 remove_uhttpd_dependency
 update_cpufreq_config
 update_argon_config
