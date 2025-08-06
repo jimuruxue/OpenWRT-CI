@@ -26,10 +26,11 @@ fi
 
 #修改argon主题设置
 ARGON_FILE="$GITHUB_WORKSPACE/wrt/feeds/luci/applications/luci-app-argon-config/root/etc/config/argon"
+DIY_FILE="$GITHUB_WORKSPACE/files/etc/config/argon"
 if [ -f "$ARGON_FILE" ]; then
 	echo " "
 
-	sed -i "s/'0.3'/'0.5'/; s/'bing'/'none'/; s/'0'/'10'/" $ARGON_FILE
+        cp -f "$DIY_FILE" "$ARGON_FILE"
 
 	cd $PKG_PATH && echo "theme-argon has been fixed!"
 fi
