@@ -133,4 +133,4 @@ UPDATE_VERSION() {
 #UPDATE_VERSION "tailscale"
 
 #删除官方的默认插件
-rm -rf ../feeds/packages/net/{v2ray-geodata}
+rm -rf ../feeds/packages/net/v2ray-geodata
