@@ -75,6 +75,7 @@ if [ -f "$DM_FILE" ]; then
 	cd $PKG_PATH && echo "diskman has been fixed!"
 fi
 
+#设置nginx默认配置和修复quickstart温度显示
 wget "https://gist.githubusercontent.com/huanchenshang/df9dc4e13c6b2cd74e05227051dca0a9/raw/nginx.default.config" -O ../feeds/packages/net/nginx-util/files/nginx.config
 wget "https://gist.githubusercontent.com/puteulanus/1c180fae6bccd25e57eb6d30b7aa28aa/raw/istore_backend.lua" -O ../package/luci-app-quickstart/luasrc/controller/istore_backend.lua
 
@@ -132,6 +133,7 @@ remove_uhttpd_dependency() {
     fi
 }
 
+#修改CPU 性能优化调节名称显示
 update_cpufreq_config() {
     local path="$GITHUB_WORKSPACE/wrt/feeds/luci/applications/luci-app-cpufreq"
     local po_file="$path/po/zh_Hans/cpufreq.po"
@@ -145,6 +147,7 @@ update_cpufreq_config() {
     fi
 }
 
+#修改Argon 主题设置名称显示
 update_argon_config() {
     local path="$GITHUB_WORKSPACE/wrt/feeds/luci/applications/luci-app-argon-config"
     local po_file="$path/po/zh_Hans/argon-config.po"
@@ -158,6 +161,7 @@ update_argon_config() {
     fi
 }
 
+#添加quickfile文件管理
 add_quickfile() {
     local repo_url="https://github.com/sbwml/luci-app-quickfile.git"
     local target_dir="$GITHUB_WORKSPACE/wrt/package/emortal/quickfile"
@@ -177,6 +181,7 @@ add_quickfile() {
     fi
 }
 
+#更换argon源
 update_argon() {
     local repo_url="https://github.com/jjm2473/luci-theme-argon.git"
     local dst_theme_path="../feeds/luci/themes/luci-theme-argon"
@@ -194,6 +199,22 @@ update_argon() {
     echo "Argon 更新完毕。"
 }
 
+#修改argon背景图片
+update_argon_background() {
+    local theme_path="$GITHUB_WORKSPACE/wrt/feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/background"
+    local source_path="$GITHUB_WORKSPACE/images"
+    local source_file="$source_path/bg1.jpg"
+    local target_file="$theme_path/bg1.jpg"
+
+    if [ -f "$source_file" ]; then
+        cp -f "$source_file" "$target_file"
+        echo "背景图片更新成功：$target_file"
+    else
+        echo "错误：未找到源图片文件：$source_file"
+        return 1
+    fi
+}
+
 install_opkg_distfeeds
 custom_v2ray_geodata
 remove_uhttpd_dependency
@@ -201,3 +222,4 @@ update_cpufreq_config
 update_argon_config
 add_quickfile
 update_argon
+update_argon_background
