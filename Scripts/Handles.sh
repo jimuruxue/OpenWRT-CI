@@ -128,23 +128,6 @@ sed -ri \'/check_signature/s@^[^#]@#&@\' /etc/opkg.conf\n" $emortal_def_dir/file
     fi
 }
 
-# 自定义v2ray-geodata下载
-custom_v2ray_geodata() {
-    local file_path="../feeds/packages/net/v2ray-geodata"
-    # 下载新的Makefile文件并覆盖
-    if [ -d "$file_path" ]; then
-        \rm -f "$file_path/Makefile"
-        curl -L https://raw.githubusercontent.com/huanchenshang/ImmortalWrt-dae/refs/heads/main/package/v2ray-geodata/Makefile \
-            -o "$file_path/Makefile"
-        # 下载init.sh文件
-        curl -L https://raw.githubusercontent.com/huanchenshang/ImmortalWrt-dae/refs/heads/main/package/v2ray-geodata/init.sh \
-            -o "$file_path/init.sh"
-        # 下载v2ray-geodata-updater文件
-        curl -L https://raw.githubusercontent.com/huanchenshang/ImmortalWrt-dae/refs/heads/main/package/v2ray-geodata/v2ray-geodata-updater \
-            -o "$file_path/v2ray-geodata-updater"
-    fi
-}
-
 # 移除 uhttpd 依赖
 # 当启用luci-app-quickfile插件时，表示启动nginx，所以移除luci对uhttp(luci-light)的依赖
 remove_uhttpd_dependency() {
