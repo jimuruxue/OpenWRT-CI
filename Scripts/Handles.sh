@@ -86,20 +86,6 @@ if [ -f "$DM_FILE" ]; then
 	cd $PKG_PATH && echo "diskman has been fixed!"
 fi
 
-# 自定义automount
-AM_FILE="$GITHUB_WORKSPACE/wrt/package/emortal/automount"
-AMMF_FILE="$GITHUB_WORKSPACE/package/automount/Makefile"
-F_FILE="$GITHUB_WORKSPACE/package/automount/files"
-if [ -d "$AM_FILE" ]; then
-	echo " "
-
-	rm -rf "$AM_FILE/files"
-	cp -f "$AMMF_FILE" "$AM_FILE/Makefile"
-	cp -r "$F_FILE" "$AM_FILE/files"
-
-	cd $PKG_PATH && echo "automount has been fixed!"
-fi
-
 # 自定义v2ray-geodata下载
 V2RAY_FILE="../feeds/packages/net/v2ray-geodata"
 MF_FILE="$GITHUB_WORKSPACE/package/v2ray-geodata/Makefile"
@@ -239,7 +225,6 @@ update_argon_background() {
 }
 
 install_opkg_distfeeds
-#custom_v2ray_geodata
 remove_uhttpd_dependency
 update_cpufreq_config
 update_argon_config
