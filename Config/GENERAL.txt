@@ -137,3 +137,4 @@ CONFIG_LUCI_LANG_zh_Hans=y
 CONFIG_PACKAGE_default-settings=y
 CONFIG_PACKAGE_default-settings-chn=y
 CONFIG_PACKAGE_bash=y
+CONFIG_PACKAGE_ntfs3-mount=y
