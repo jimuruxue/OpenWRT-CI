@@ -192,7 +192,7 @@ add_quickfile() {
 
 #更换argon源
 update_argon() {
-    local repo_url="https://github.com/jjm2473/luci-theme-argon.git"
+    local repo_url="https://github.com/huanchenshang/luci-theme-argon.git"
     local dst_theme_path="../feeds/luci/themes/luci-theme-argon"
     local tmp_dir=$(mktemp -d)
 
@@ -230,4 +230,4 @@ update_cpufreq_config
 update_argon_config
 add_quickfile
 update_argon
-update_argon_background
+#update_argon_background
