@@ -232,11 +232,11 @@ update_menu_location() {
 }
 
 install_opkg_distfeeds
+add_quickfile
 remove_uhttpd_dependency
 update_argon
 update_argon_config
 update_menu_location
-add_quickfile
 #update_argon_background
 #update_cpufreq_config
 
