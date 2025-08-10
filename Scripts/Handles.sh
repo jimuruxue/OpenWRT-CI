@@ -76,7 +76,7 @@ if [ -f "$RUST_FILE" ]; then
 fi
 
 #修复DiskMan编译失败
-DM_FILE="./luci-app-diskman/applications/luci-app-diskman/Makefile"
+DM_FILE="./luci-app-diskman/luci-app-diskman/Makefile"
 if [ -f "$DM_FILE" ]; then
 	echo " "
 
@@ -84,6 +84,21 @@ if [ -f "$DM_FILE" ]; then
     sed -i '/ntfs-3g-utils /d' $DM_FILE
 
 	cd $PKG_PATH && echo "diskman has been fixed!"
+fi
+
+#修复quickfile
+QF_FILE="./luci-app-quickfile/quickfile/Makefile"
+if [ -f "$QF_FILE" ]; then
+	echo " "
+
+	sed -i '/\t\$(INSTALL_BIN) \$(PKG_BUILD_DIR)\/quickfile-\$(ARCH_PACKAGES)/c\
+\tif [ "\$(ARCH_PACKAGES)" = "x86_64" ]; then \\\
+\t\t\$(INSTALL_BIN) \$(PKG_BUILD_DIR)\/quickfile-x86_64 \$(1)\/usr\/bin\/quickfile; \\\
+\telse \\\
+\t\t\$(INSTALL_BIN) \$(PKG_BUILD_DIR)\/quickfile-aarch64_generic \$(1)\/usr\/bin\/quickfile; \\\
+\tfi' "$QF_FILE"
+
+	cd $PKG_PATH && echo "quickfile has been fixed!"
 fi
 
 # 自定义v2ray-geodata下载
@@ -224,10 +239,18 @@ update_argon_background() {
     fi
 }
 
+update_menu_location() {
+    local quickfile_path="./luci-app-quickfile/luci-app-quickfile/root/usr/share/luci/menu.d/luci-app-quickfile.json"
+    if [ -d "$(dirname "$quickfile_path")" ] && [ -f "$quickfile_path" ]; then
+        sed -i 's/system/nas/g' "$quickfile_path"
+    fi
+}
+
 install_opkg_distfeeds
 remove_uhttpd_dependency
 update_cpufreq_config
 update_argon_config
-add_quickfile
+#add_quickfile
 update_argon
 #update_argon_background
+update_menu_location
