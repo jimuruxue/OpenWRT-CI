@@ -86,21 +86,6 @@ if [ -f "$DM_FILE" ]; then
 	cd $PKG_PATH && echo "diskman has been fixed!"
 fi
 
-#修复quickfile
-QF_FILE="../package/luci-app-quickfile/quickfile/Makefile"
-if [ -f "$QF_FILE" ]; then
-	echo " "
-
-	sed -i '/\t\$(INSTALL_BIN) \$(PKG_BUILD_DIR)\/quickfile-\$(ARCH_PACKAGES)/c\
-\tif [ "\$(ARCH_PACKAGES)" = "x86_64" ]; then \\\
-\t\t\$(INSTALL_BIN) \$(PKG_BUILD_DIR)\/quickfile-x86_64 \$(1)\/usr\/bin\/quickfile; \\\
-\telse \\\
-\t\t\$(INSTALL_BIN) \$(PKG_BUILD_DIR)\/quickfile-aarch64_generic \$(1)\/usr\/bin\/quickfile; \\\
-\tfi' "$QF_FILE"
-
-	cd $PKG_PATH && echo "quickfile has been fixed!"
-fi
-
 # 自定义v2ray-geodata下载
 V2RAY_FILE="../feeds/packages/net/v2ray-geodata"
 MF_FILE="$GITHUB_WORKSPACE/package/v2ray-geodata/Makefile"
@@ -251,7 +236,7 @@ remove_uhttpd_dependency
 update_argon
 update_argon_config
 update_menu_location
-#add_quickfile
+add_quickfile
 #update_argon_background
 #update_cpufreq_config
 
