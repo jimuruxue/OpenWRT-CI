@@ -170,6 +170,20 @@ update_argon_config() {
     fi
 }
 
+#turboacc设置名称显示
+update_turboacc_config() {
+    local path="$GITHUB_WORKSPACE/wrt/feeds/ledeluci/applications/luci-app-turboacc"
+    local po_file="$path/po/zh_Hans/turboacc.po"
+
+    if [ -d "$path" ] && [ -f "$po_file" ]; then
+        sed -i 's/msgstr "Turbo ACC 网络加速"/msgstr "网络加速"/g' "$po_file"
+        echo "Modification completed for $po_file"
+    else
+        echo "Error: Directory or PO file not found at $path"
+        return 1
+    fi
+}
+
 #添加quickfile文件管理
 add_quickfile() {
     local repo_url="https://github.com/sbwml/luci-app-quickfile.git"
@@ -237,6 +251,7 @@ add_quickfile
 remove_uhttpd_dependency
 update_argon
 update_argon_config
+update_turboacc_config
 update_menu_location
 #update_argon_background
 #update_cpufreq_config
