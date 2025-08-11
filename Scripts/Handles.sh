@@ -238,11 +238,18 @@ update_argon_background() {
     fi
 }
 
+#调整侧边菜单显示位置
 update_menu_location() {
-    local quickfile_path="./package/emortal/quickfile/luci-app-quickfile/root/usr/share/luci/menu.d/luci-app-quickfile.json"
-    if [ -d "$(dirname "$quickfile_path")" ] && [ -f "$quickfile_path" ]; then
+    local quickfile_path="$GITHUB_WORKSPACE/wrt/package/emortal/quickfile/luci-app-quickfile/root/usr/share/luci/menu.d/luci-app-quickfile.json"
+    local nlbwmon_path="../feeds/lluci/applications/luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json"
+
+    if [ -d "$(dirname "$quickfile_path")" ] && [ -f "$quickfile_path" ] && \
+       [ -d "$(dirname "$nlbwmon_path")" ] && [ -f "$nlbwmon_path" ]; then
         sed -i 's/system/nas/g' "$quickfile_path"
-		echo "更改完成"
+        sed -i 's/services/network/g' "$nlbwmon_path"
+        echo "更改完成"
+    else
+        echo "文件或目录不存在，跳过更改。"
     fi
 }
 
