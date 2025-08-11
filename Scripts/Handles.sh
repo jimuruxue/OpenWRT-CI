@@ -75,6 +75,28 @@ if [ -f "$RUST_FILE" ]; then
 	cd $PKG_PATH && echo "rust has been fixed!"
 fi
 
+#修复turboacc依赖
+TARGET_MAKEFILE="../feeds/ledeluci/applications/luci-app-turboacc/Makefile"
+
+# 检查文件是否存在
+if [ ! -f "$TARGET_MAKEFILE" ]; then
+    echo "错误：未找到目标 Makefile 文件: $TARGET_MAKEFILE"
+    exit 1
+fi
+
+echo "开始处理 $TARGET_MAKEFILE ..."
+
+sed -i '/+PACKAGE_$(PKG_NAME)_INCLUDE_SHORTCUT_FE:kmod-fast-classifier/d' "$TARGET_MAKEFILE"
+
+sed -i '/+PACKAGE_$(PKG_NAME)_INCLUDE_SHORTCUT_FE_CM:kmod-shortcut-fe-cm/d' "$TARGET_MAKEFILE"
+
+sed -i '/define Package\/\$(PKG_NAME)\/config/,/endef/d' "$TARGET_MAKEFILE"
+
+echo "已删除以下依赖配置："
+echo "  - kmod-fast-classifier"
+echo "  - kmod-shortcut-fe-cm"
+echo "操作完成！"
+
 #修复DiskMan编译失败
 DM_FILE="../package/luci-app-diskman/applications/luci-app-diskman/Makefile"
 if [ -f "$DM_FILE" ]; then
@@ -241,7 +263,7 @@ update_argon_background() {
 #调整侧边菜单显示位置
 update_menu_location() {
     local quickfile_path="$GITHUB_WORKSPACE/wrt/package/emortal/quickfile/luci-app-quickfile/root/usr/share/luci/menu.d/luci-app-quickfile.json"
-    local nlbwmon_path="../feeds/lluci/applications/luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json"
+    local nlbwmon_path="../feeds/luci/applications/luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json"
 
     if [ -d "$(dirname "$quickfile_path")" ] && [ -f "$quickfile_path" ] && \
        [ -d "$(dirname "$nlbwmon_path")" ] && [ -f "$nlbwmon_path" ]; then
