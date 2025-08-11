@@ -75,7 +75,7 @@ if [ -f "$RUST_FILE" ]; then
 	cd $PKG_PATH && echo "rust has been fixed!"
 fi
 
-#修复turboacc依赖
+# 修复turboacc依赖
 TARGET_MAKEFILE="../feeds/ledeluci/applications/luci-app-turboacc/Makefile"
 
 # 检查文件是否存在
@@ -86,16 +86,21 @@ fi
 
 echo "开始处理 $TARGET_MAKEFILE ..."
 
+# 1. 删除 LUCI_DEPENDS 中直接关联的依赖行
 sed -i '/+PACKAGE_$(PKG_NAME)_INCLUDE_SHORTCUT_FE:kmod-fast-classifier/d' "$TARGET_MAKEFILE"
-
 sed -i '/+PACKAGE_$(PKG_NAME)_INCLUDE_SHORTCUT_FE_CM:kmod-shortcut-fe-cm/d' "$TARGET_MAKEFILE"
 
-sed -i '/define Package\/\$(PKG_NAME)\/config/,/endef/d' "$TARGET_MAKEFILE"
+# 2. 精准删除 config 段中与两个模块相关的配置项（保留其他配置）
+# 删除 INCLUDE_SHORTCUT_FE 配置块（从定义到 default 行）
+sed -i '/config PACKAGE_$(PKG_NAME)_INCLUDE_SHORTCUT_FE/,/default y/d' "$TARGET_MAKEFILE"
+# 删除 INCLUDE_SHORTCUT_FE_CM 配置块（从定义到 default 行）
+sed -i '/config PACKAGE_$(PKG_NAME)_INCLUDE_SHORTCUT_FE_CM/,/default y/d' "$TARGET_MAKEFILE"
 
 echo "已删除以下依赖配置："
-echo "  - kmod-fast-classifier"
-echo "  - kmod-shortcut-fe-cm"
+echo "  - kmod-fast-classifier 相关依赖及配置项"
+echo "  - kmod-shortcut-fe-cm 相关依赖及配置项"
 echo "操作完成！"
+
 
 #修复DiskMan编译失败
 DM_FILE="../package/luci-app-diskman/applications/luci-app-diskman/Makefile"
