@@ -25,7 +25,7 @@ if [ -d *"homeproxy"* ]; then
 fi
 
 #修改argon主题设置
-ARGON_FILE="../package/luci-app-argon-config/root/etc/config/argon"
+ARGON_FILE="../package/argon/luci-app-argon-config/root/etc/config/argon"
 DIY_FILE="$GITHUB_WORKSPACE/files/etc/config/argon"
 if [ -f "$ARGON_FILE" ]; then
 	echo " "
@@ -158,7 +158,7 @@ update_cpufreq_config() {
 
 #修改Argon 主题设置名称显示
 update_argon_config() {
-    local path="../package/luci-app-argon-config"
+    local path="../package/argon/luci-app-argon-config"
     local po_file="$path/po/zh_Hans/argon-config.po"
 
     if [ -d "$path" ] && [ -f "$po_file" ]; then
@@ -206,7 +206,7 @@ add_quickfile() {
 
 #修改argon背景图片
 update_argon_background() {
-    local theme_path="../package/luci-theme-argon/htdocs/luci-static/argon/background"
+    local theme_path="../package/argon/luci-theme-argon/htdocs/luci-static/argon/background"
     local source_path="$GITHUB_WORKSPACE/images"
     local source_file="$source_path/bg1.jpg"
     local target_file="$theme_path/bg1.jpg"
