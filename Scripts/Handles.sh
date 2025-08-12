@@ -7,7 +7,7 @@ if [ -d *"homeproxy"* ]; then
 	echo " "
 
 	HP_RULE="surge"
-	HP_PATH="homeproxy/root/etc/homeproxy"
+	HP_PATH="../feeds/luci/applications/luci-app-homeproxy/root/etc/homeproxy"
 
 	rm -rf ./$HP_PATH/resources/*
 
