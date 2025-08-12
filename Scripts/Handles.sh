@@ -142,7 +142,7 @@ sed -ri \'/check_signature/s@^[^#]@#&@\' /etc/opkg.conf\n" $emortal_def_dir/file
 # 移除 uhttpd 依赖
 # 当启用luci-app-quickfile插件时，表示启动nginx，所以移除luci对uhttp(luci-light)的依赖
 remove_uhttpd_dependency() {
-    local config_path="$GITHUB_WORKSPACE/wrt/.config"
+    local config_path="$GITHUB_WORKSPACE/wrt/GENERAL.txt"
     local luci_makefile_path="$GITHUB_WORKSPACE/wrt/feeds/luci/collections/luci/Makefile"
 
     if grep -q "CONFIG_PACKAGE_luci-app-quickfile=y" "$config_path"; then
