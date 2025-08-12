@@ -64,3 +64,15 @@ if [[ "${WRT_TARGET^^}" == *"QUALCOMMAX"* ]]; then
 		echo "qualcommax set up nowifi successfully!"
 	fi
 fi
+
+#设置使用bbr加速
+BBR_CONF_PATH="$GITHUB_WORKSPACE/wrt/package/base-files/files/etc/sysctl.d/10-bbr.conf"
+if [ ! -f "$BBR_CONF_PATH" ]; then
+    echo "文件 $BBR_CONF_PATH 不存在，正在创建并写入内容..."
+    cat <<'EOF' >"$BBR_CONF_PATH"
+net.core.default_qdisc=fq
+net.ipv4.tcp_congestion_control=bbr
+EOF
+    cd $PKG_PATH && echo "BBR 配置文件创建成功！"
+fi
+
