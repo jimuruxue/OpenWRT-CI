@@ -68,7 +68,6 @@ fi
 #设置使用bbr加速
 BBR_CONF_PATH="$GITHUB_WORKSPACE/wrt/package/base-files/files/etc/sysctl.d/10-bbr.conf"
 if [ ! -f "$BBR_CONF_PATH" ]; then
-    echo "文件 $BBR_CONF_PATH 不存在，正在创建并写入内容..."
     cat <<'EOF' >"$BBR_CONF_PATH"
 net.core.default_qdisc=fq
 net.ipv4.tcp_congestion_control=bbr
@@ -78,14 +77,12 @@ fi
 
 # 移除 uhttpd 依赖
 # 当启用luci-app-quickfile插件时，表示启动nginx，所以移除luci对uhttp(luci-light)的依赖
-remove_uhttpd_dependency() {
-    local config_path="$GITHUB_WORKSPACE/wrt/.config"
-    local luci_makefile_path="$GITHUB_WORKSPACE/wrt/feeds/luci/collections/luci/Makefile"
+config_path="$GITHUB_WORKSPACE/wrt/.config"
+luci_makefile_path="$GITHUB_WORKSPACE/wrt/feeds/luci/collections/luci/Makefile"
 
-    if grep -q "CONFIG_PACKAGE_luci-app-quickfile=y" "$config_path"; then
-        if [ -f "$luci_makefile_path" ]; then
-            sed -i '/luci-light/d' "$luci_makefile_path"
-            echo "Removed uhttpd (luci-light) dependency as luci-app-quickfile (nginx) is enabled."
-        fi
+if grep -q "CONFIG_PACKAGE_luci-app-quickfile=y" "$config_path"; then
+    if [ -f "$luci_makefile_path" ]; then
+        sed -i '/luci-light/d' "$luci_makefile_path"
+        echo "删除 uhttpd (luci-light) 依赖项,因为 luci-app-quickfile (nginx) 已启用."
     fi
-}
+fi
