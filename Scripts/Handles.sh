@@ -257,6 +257,6 @@ update_argon_config
 update_argon
 #update_turboacc_config
 update_menu_location
-update_argon_background
+#update_argon_background
 #update_cpufreq_config
 
