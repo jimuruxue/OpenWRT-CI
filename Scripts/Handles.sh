@@ -25,7 +25,7 @@ if [ -d *"homeproxy"* ]; then
 fi
 
 #修改argon主题设置
-ARGON_FILE="../package/argon/luci-app-argon-config/root/etc/config/argon"
+ARGON_FILE="$GITHUB_WORKSPACE/wrt/feeds/luci/applications/luci-app-argon-config/root/etc/config/argon"
 DIY_FILE="$GITHUB_WORKSPACE/files/etc/config/argon"
 if [ -f "$ARGON_FILE" ]; then
 	echo " "
@@ -158,7 +158,7 @@ update_cpufreq_config() {
 
 #修改Argon 主题设置名称显示
 update_argon_config() {
-    local path="../package/argon/luci-app-argon-config"
+    local path="$GITHUB_WORKSPACE/wrt/feeds/luci/applications/luci-app-argon-config"
     local po_file="$path/po/zh_Hans/argon-config.po"
 
     if [ -d "$path" ] && [ -f "$po_file" ]; then
@@ -204,9 +204,27 @@ add_quickfile() {
     fi
 }
 
+#更换argon源
+update_argon() {
+    local repo_url="https://github.com/huanchenshang/luci-theme-argon.git"
+    local dst_theme_path="../feeds/luci/themes/luci-theme-argon"
+    local tmp_dir=$(mktemp -d)
+
+    echo "正在更新 argon 主题..."
+
+    git clone --depth 1 "$repo_url" "$tmp_dir"
+
+    rm -rf "$dst_theme_path"
+    rm -rf "$tmp_dir/.git"
+    mv "$tmp_dir" "$dst_theme_path"
+
+    echo "luci-theme-argon 更新完成"
+    echo "Argon 更新完毕。"
+}
+
 #修改argon背景图片
 update_argon_background() {
-    local theme_path="../package/argon/luci-theme-argon/htdocs/luci-static/argon/background"
+    local theme_path="$GITHUB_WORKSPACE/wrt/feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/background"
     local source_path="$GITHUB_WORKSPACE/images"
     local source_file="$source_path/bg1.jpg"
     local target_file="$theme_path/bg1.jpg"
@@ -236,8 +254,9 @@ install_opkg_distfeeds
 add_quickfile
 remove_uhttpd_dependency
 update_argon_config
+update_argon
 #update_turboacc_config
 update_menu_location
-#update_argon_background
+update_argon_background
 #update_cpufreq_config
 
