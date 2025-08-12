@@ -236,7 +236,6 @@ update_menu_location() {
 
 install_opkg_distfeeds
 add_quickfile
-remove_uhttpd_dependency
 update_argon_config
 update_argon
 #update_turboacc_config
