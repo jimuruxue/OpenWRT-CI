@@ -242,7 +242,7 @@ update_argon_background() {
 update_menu_location() {
     local quickfile_path="$GITHUB_WORKSPACE/wrt/package/emortal/quickfile/luci-app-quickfile/root/usr/share/luci/menu.d/luci-app-quickfile.json"
 
-    if [ -d "$(dirname "$quickfile_path")" ] && [ -f "$quickfile_path" ] && \
+    if [ -d "$(dirname "$quickfile_path")" ] && [ -f "$quickfile_path" ]; then
         sed -i 's/system/nas/g' "$quickfile_path"
         echo "更改完成"
     else
