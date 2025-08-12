@@ -204,24 +204,6 @@ add_quickfile() {
     fi
 }
 
-#更换argon源
-update_argon() {
-    local repo_url="https://github.com/huanchenshang/luci-theme-argon.git"
-    local dst_theme_path="../feeds/luci/themes/luci-theme-argon"
-    local tmp_dir=$(mktemp -d)
-
-    echo "正在更新 argon 主题..."
-
-    git clone --depth 1 "$repo_url" "$tmp_dir"
-
-    rm -rf "$dst_theme_path"
-    rm -rf "$tmp_dir/.git"
-    mv "$tmp_dir" "$dst_theme_path"
-
-    echo "luci-theme-argon 更新完成"
-    echo "Argon 更新完毕。"
-}
-
 #修改argon背景图片
 update_argon_background() {
     local theme_path="$GITHUB_WORKSPACE/wrt/feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/background"
@@ -253,7 +235,6 @@ update_menu_location() {
 install_opkg_distfeeds
 add_quickfile
 remove_uhttpd_dependency
-update_argon
 update_argon_config
 #update_turboacc_config
 update_menu_location
