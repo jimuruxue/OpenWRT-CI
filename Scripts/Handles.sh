@@ -228,7 +228,7 @@ update_menu_location() {
 
     if [ -d "$(dirname "$quickfile_path")" ] && [ -f "$quickfile_path" ]; then
         sed -i 's/system/nas/g' "$quickfile_path"
-        echo "更改完成"
+        echo "菜单更名完成"
     else
         echo "文件或目录不存在，跳过更改。"
     fi
