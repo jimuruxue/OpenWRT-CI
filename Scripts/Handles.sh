@@ -75,33 +75,6 @@ if [ -f "$RUST_FILE" ]; then
 	cd $PKG_PATH && echo "rust has been fixed!"
 fi
 
-# 修复turboacc依赖
-TARGET_MAKEFILE="../feeds/ledeluci/applications/luci-app-turboacc/Makefile"
-
-# 检查文件是否存在
-if [ ! -f "$TARGET_MAKEFILE" ]; then
-    echo "错误：未找到目标 Makefile 文件: $TARGET_MAKEFILE"
-    exit 1
-fi
-
-echo "开始处理 $TARGET_MAKEFILE ..."
-
-# 1. 删除 LUCI_DEPENDS 中直接关联的依赖行
-sed -i '/+PACKAGE_$(PKG_NAME)_INCLUDE_SHORTCUT_FE:kmod-fast-classifier/d' "$TARGET_MAKEFILE"
-sed -i '/+PACKAGE_$(PKG_NAME)_INCLUDE_SHORTCUT_FE_CM:kmod-shortcut-fe-cm/d' "$TARGET_MAKEFILE"
-
-# 2. 精准删除 config 段中与两个模块相关的配置项（保留其他配置）
-# 删除 INCLUDE_SHORTCUT_FE 配置块（从定义到 default 行）
-sed -i '/config PACKAGE_$(PKG_NAME)_INCLUDE_SHORTCUT_FE/,/default y/d' "$TARGET_MAKEFILE"
-# 删除 INCLUDE_SHORTCUT_FE_CM 配置块（从定义到 default 行）
-sed -i '/config PACKAGE_$(PKG_NAME)_INCLUDE_SHORTCUT_FE_CM/,/default y/d' "$TARGET_MAKEFILE"
-
-echo "已删除以下依赖配置："
-echo "  - kmod-fast-classifier 相关依赖及配置项"
-echo "  - kmod-shortcut-fe-cm 相关依赖及配置项"
-echo "操作完成！"
-
-
 #修复DiskMan编译失败
 DM_FILE="../package/luci-app-diskman/applications/luci-app-diskman/Makefile"
 if [ -f "$DM_FILE" ]; then
@@ -268,12 +241,9 @@ update_argon_background() {
 #调整侧边菜单显示位置
 update_menu_location() {
     local quickfile_path="$GITHUB_WORKSPACE/wrt/package/emortal/quickfile/luci-app-quickfile/root/usr/share/luci/menu.d/luci-app-quickfile.json"
-    local nlbwmon_path="../feeds/luci/applications/luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json"
 
     if [ -d "$(dirname "$quickfile_path")" ] && [ -f "$quickfile_path" ] && \
-       [ -d "$(dirname "$nlbwmon_path")" ] && [ -f "$nlbwmon_path" ]; then
         sed -i 's/system/nas/g' "$quickfile_path"
-        sed -i 's/services/network/g' "$nlbwmon_path"
         echo "更改完成"
     else
         echo "文件或目录不存在，跳过更改。"
@@ -285,7 +255,7 @@ add_quickfile
 remove_uhttpd_dependency
 update_argon
 update_argon_config
-update_turboacc_config
+#update_turboacc_config
 update_menu_location
 #update_argon_background
 #update_cpufreq_config
