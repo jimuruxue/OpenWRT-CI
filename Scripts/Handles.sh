@@ -128,20 +128,6 @@ sed -ri \'/check_signature/s@^[^#]@#&@\' /etc/opkg.conf\n" $emortal_def_dir/file
     fi
 }
 
-# 移除 uhttpd 依赖
-# 当启用luci-app-quickfile插件时，表示启动nginx，所以移除luci对uhttp(luci-light)的依赖
-remove_uhttpd_dependency() {
-    local config_path="$GITHUB_WORKSPACE/wrt/GENERAL.txt"
-    local luci_makefile_path="$GITHUB_WORKSPACE/wrt/feeds/luci/collections/luci/Makefile"
-
-    if grep -q "CONFIG_PACKAGE_luci-app-quickfile=y" "$config_path"; then
-        if [ -f "$luci_makefile_path" ]; then
-            sed -i '/luci-light/d' "$luci_makefile_path"
-            echo "Removed uhttpd (luci-light) dependency as luci-app-quickfile (nginx) is enabled."
-        fi
-    fi
-}
-
 #修改CPU 性能优化调节名称显示
 update_cpufreq_config() {
     local path="$GITHUB_WORKSPACE/wrt/feeds/luci/applications/luci-app-cpufreq"
