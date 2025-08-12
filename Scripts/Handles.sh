@@ -139,7 +139,6 @@ update_cpufreq_config() {
         echo "Modification completed for $po_file"
     else
         echo "Error: Directory or PO file not found at $path"
-        return 1
     fi
 }
 
@@ -153,7 +152,6 @@ update_argon_config() {
         echo "主题设置更名成功"
     else
         echo "文件没有找到"
-        return 1
     fi
 }
 
@@ -167,7 +165,6 @@ update_turboacc_config() {
         echo "Modification completed for $po_file"
     else
         echo "Error: Directory or PO file not found at $path"
-        return 1
     fi
 }
 
