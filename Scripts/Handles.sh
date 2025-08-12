@@ -21,7 +21,7 @@ if [ -d *"homeproxy"* ]; then
 
 	cd .. && rm -rf ./$HP_RULE/
 
-	cd $PKG_PATH && echo "homeproxy date has been updated!"
+	cd $PKG_PATH && echo "homeproxy数据更新成功"
 fi
 
 #修改argon主题设置
@@ -32,7 +32,7 @@ if [ -f "$ARGON_FILE" ]; then
 
         cp -f "$DIY_FILE" "$ARGON_FILE"
 
-	cd $PKG_PATH && echo "theme-argon has been fixed!"
+	cd $PKG_PATH && echo "argon主题参数设置成功!"
 fi
 
 #修改qca-nss-drv启动顺序
@@ -42,7 +42,7 @@ if [ -f "$NSS_DRV" ]; then
 
 	sed -i 's/START=.*/START=85/g' $NSS_DRV
 
-	cd $PKG_PATH && echo "qca-nss-drv has been fixed!"
+	cd $PKG_PATH && echo "qca-nss-drv已被修复!"
 fi
 
 #修改qca-nss-pbuf启动顺序
@@ -52,7 +52,7 @@ if [ -f "$NSS_PBUF" ]; then
 
 	sed -i 's/START=.*/START=86/g' $NSS_PBUF
 
-	cd $PKG_PATH && echo "qca-nss-pbuf has been fixed!"
+	cd $PKG_PATH && echo "qca-nss-pbuf已被修复!"
 fi
 
 #修复TailScale配置文件冲突
@@ -62,7 +62,7 @@ if [ -f "$TS_FILE" ]; then
 
 	sed -i '/\/files/d' $TS_FILE
 
-	cd $PKG_PATH && echo "tailscale has been fixed!"
+	cd $PKG_PATH && echo "tailscale已被修复!"
 fi
 
 #修复Rust编译失败
@@ -72,7 +72,7 @@ if [ -f "$RUST_FILE" ]; then
 
 	sed -i 's/ci-llvm=true/ci-llvm=false/g' $RUST_FILE
 
-	cd $PKG_PATH && echo "rust has been fixed!"
+	cd $PKG_PATH && echo "rust已被修复!"
 fi
 
 #修复DiskMan编译失败
@@ -83,7 +83,7 @@ if [ -f "$DM_FILE" ]; then
 	sed -i 's/fs-ntfs/fs-ntfs3/g' $DM_FILE
     sed -i '/ntfs-3g-utils /d' $DM_FILE
 
-	cd $PKG_PATH && echo "diskman has been fixed!"
+	cd $PKG_PATH && echo "diskman已被修复!"
 fi
 
 # 自定义v2ray-geodata下载
@@ -98,7 +98,7 @@ if [ -d "$V2RAY_FILE" ]; then
 	cp -f "$SH_FILE" "$V2RAY_FILE/init.sh"
 	cp -f "$UP_FILE" "$V2RAY_FILE/v2ray-geodata-updater"
 
-	cd $PKG_PATH && echo "v2ray-geodata has been fixed!"
+	cd $PKG_PATH && echo "v2ray-geodata自定义成功!"
 fi
 
 #设置nginx默认配置和修复quickstart温度显示
@@ -136,9 +136,9 @@ update_cpufreq_config() {
 
     if [ -d "$path" ] && [ -f "$po_file" ]; then
         sed -i 's/msgstr "CPU 性能优化调节"/msgstr "性能调节"/g' "$po_file"
-        echo "Modification completed for $po_file"
+        cd $PKG_PATH && echo "cpu调节更名成功"
     else
-        echo "Error: Directory or PO file not found at $path"
+        echo "cpufreq.po文件未找到"
     fi
 }
 
@@ -149,9 +149,9 @@ update_argon_config() {
 
     if [ -d "$path" ] && [ -f "$po_file" ]; then
         sed -i 's/msgstr "Argon 主题设置"/msgstr "主题设置"/g' "$po_file"
-        echo "主题设置更名成功"
+        cd $PKG_PATH && echo "主题设置更名成功"
     else
-        echo "文件没有找到"
+        echo "argon-config.po文件没有找到"
     fi
 }
 
@@ -162,9 +162,9 @@ update_turboacc_config() {
 
     if [ -d "$path" ] && [ -f "$po_file" ]; then
         sed -i 's/msgstr "Turbo ACC 网络加速"/msgstr "网络加速"/g' "$po_file"
-        echo "Modification completed for $po_file"
+        cd $PKG_PATH && echo "turbocc更名成功"
     else
-        echo "Error: Directory or PO file not found at $path"
+        echo "turboacc.po文件未找到"
     fi
 }
 
@@ -215,7 +215,7 @@ update_argon_background() {
 
     if [ -f "$source_file" ]; then
         cp -f "$source_file" "$target_file"
-        echo "背景图片更新成功：$target_file"
+        cd $PKG_PATH && echo "背景图片更新成功：$target_file"
     else
         echo "错误：未找到源图片文件：$source_file"
         return 1
@@ -228,7 +228,7 @@ update_menu_location() {
 
     if [ -d "$(dirname "$quickfile_path")" ] && [ -f "$quickfile_path" ]; then
         sed -i 's/system/nas/g' "$quickfile_path"
-        echo "菜单更名完成"
+        cd $PKG_PATH && echo "quickfile菜单移动位置完成"
     else
         echo "文件或目录不存在，跳过更改。"
     fi
