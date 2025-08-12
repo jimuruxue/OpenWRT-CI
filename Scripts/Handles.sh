@@ -101,6 +101,17 @@ if [ -d "$V2RAY_FILE" ]; then
 	cd $PKG_PATH && echo "v2ray-geodata has been fixed!"
 fi
 
+#设置使用bbr加速
+BBR_CONF_PATH="$GITHUB_WORKSPACE/wrt/package/base-files/files/etc/sysctl.d/10-bbr.conf"
+if [ ! -f "$BBR_CONF_PATH" ]; then
+    echo "文件 $BBR_CONF_PATH 不存在，正在创建并写入内容..."
+    cat <<'EOF' >"$BBR_CONF_PATH"
+net.core.default_qdisc=fq
+net.ipv4.tcp_congestion_control=bbr
+EOF
+    cd $PKG_PATH && echo "BBR 配置文件创建成功！"
+fi
+
 #设置nginx默认配置和修复quickstart温度显示
 wget "https://gist.githubusercontent.com/huanchenshang/df9dc4e13c6b2cd74e05227051dca0a9/raw/nginx.default.config" -O ../feeds/packages/net/nginx-util/files/nginx.config
 wget "https://gist.githubusercontent.com/puteulanus/1c180fae6bccd25e57eb6d30b7aa28aa/raw/istore_backend.lua" -O ../package/luci-app-quickstart/luasrc/controller/istore_backend.lua
