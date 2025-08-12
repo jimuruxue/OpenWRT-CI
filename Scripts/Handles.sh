@@ -125,6 +125,7 @@ EOF
         sed -i "/exit 0/i\\
 [ -f \'/etc/99-distfeeds.conf\' ] && mv \'/etc/99-distfeeds.conf\' \'/etc/opkg/distfeeds.conf\'\n\
 sed -ri \'/check_signature/s@^[^#]@#&@\' /etc/opkg.conf\n" $emortal_def_dir/files/99-default-settings
+		cd $PKG_PATH && echo "软件源修改成功!"
     fi
 }
 
@@ -149,9 +150,9 @@ update_argon_config() {
 
     if [ -d "$path" ] && [ -f "$po_file" ]; then
         sed -i 's/msgstr "Argon 主题设置"/msgstr "主题设置"/g' "$po_file"
-        echo "Modification completed for $po_file"
+        echo "主题设置更名成功"
     else
-        echo "Error: Directory or PO file not found at $path"
+        echo "文件没有找到"
         return 1
     fi
 }
@@ -187,6 +188,7 @@ add_quickfile() {
 \telse \\\
 \t\t\$(INSTALL_BIN) \$(PKG_BUILD_DIR)\/quickfile-aarch64_generic \$(1)\/usr\/bin\/quickfile; \\\
 \tfi' "$makefile_path"
+	cd $PKG_PATH && echo "quickfie添加成功!"
     fi
 }
 
@@ -204,8 +206,7 @@ update_argon() {
     rm -rf "$tmp_dir/.git"
     mv "$tmp_dir" "$dst_theme_path"
 
-    echo "luci-theme-argon 更新完成"
-    echo "Argon 更新完毕。"
+    cd $PKG_PATH && echo "luci-theme-argon 更新完成"
 }
 
 #修改argon背景图片
