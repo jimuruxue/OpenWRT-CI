@@ -165,7 +165,7 @@ argon_url="https://github.com/huanchenshang/luci-theme-argon.git"
 dst_theme_path="../feeds/luci/themes/luci-theme-argon"
 tmp_dir=$(mktemp -d)
 
-    git clone --depth 1 "$qrgon_url" "$tmp_dir"
+    git clone --depth 1 "$argon_url" "$tmp_dir"
 
     rm -rf "$dst_theme_path"
     rm -rf "$tmp_dir/.git"
