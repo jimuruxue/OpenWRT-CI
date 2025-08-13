@@ -222,24 +222,11 @@ update_argon_background() {
     fi
 }
 
-#调整侧边菜单显示位置
-update_menu_location() {
-    local quickfile_path="$GITHUB_WORKSPACE/wrt/package/emortal/quickfile/luci-app-quickfile/root/usr/share/luci/menu.d/luci-app-quickfile.json"
-
-    if [ -d "$(dirname "$quickfile_path")" ] && [ -f "$quickfile_path" ]; then
-        sed -i 's/system/nas/g' "$quickfile_path"
-        cd $PKG_PATH && echo "quickfile菜单移动位置完成"
-    else
-        echo "文件或目录不存在，跳过更改。"
-    fi
-}
-
 install_opkg_distfeeds
 add_quickfile
 update_argon_config
 update_argon
 #update_turboacc_config
-update_menu_location
 #update_argon_background
 #update_cpufreq_config
 
