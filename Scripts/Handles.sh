@@ -185,3 +185,25 @@ if [ -f "$source_file" ]; then
 else
     echo "错误：未找到源图片文件：$source_file"
 fi
+
+#添加定时清理内存
+sh_dir="$PKG_PATH/base-files/files/etc/init.d"
+if [ -d "$sh_dir" ]; then
+    cat <<'EOF' >"$sh_dir/custom_task"
+#!/bin/sh /etc/rc.common
+# 设置启动优先级
+START=99
+
+boot() {
+    # 重新添加缓存请求定时任务
+    sed -i '/drop_caches/d' /etc/crontabs/root
+    echo "15 3 * * * sync && echo 3 > /proc/sys/vm/drop_caches" >>/etc/crontabs/root
+    # 应用新的 crontab 配置
+    crontab /etc/crontabs/root
+}
+EOF
+    chmod +x "$sh_dir/custom_task"
+    cd $PKG_PATH && echo "添加定时清理内存成功!"
+else
+    echo "添加定时清理内存出错"
+fi
