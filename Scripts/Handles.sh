@@ -93,9 +93,27 @@ if [ -d "$V2RAY_FILE" ]; then
 	cd $PKG_PATH && echo "v2ray-geodata自定义成功!"
 fi
 
-#设置nginx默认配置和修复quickstart温度显示
-wget "https://gist.githubusercontent.com/huanchenshang/df9dc4e13c6b2cd74e05227051dca0a9/raw/nginx.default.config" -O ../feeds/packages/net/nginx-util/files/nginx.config
-wget "https://gist.githubusercontent.com/puteulanus/1c180fae6bccd25e57eb6d30b7aa28aa/raw/istore_backend.lua" -O ../package/luci-app-quickstart/luasrc/controller/istore_backend.lua
+#设置nginx默认配置
+NGINX_FILE="../feeds/packages/net/nginx-util/files/nginx.config"
+NGINX_URL="https://gist.githubusercontent.com/huanchenshang/df9dc4e13c6b2cd74e05227051dca0a9/raw/nginx.default.config"
+
+if wget -O "$NGINX_FILE" "$NGINX_URL"; then
+    echo "nginx默认配置已成功替换！"
+else
+    echo "错误：无法下载nginx文件,请检查URL和网络连接。"
+	exit 1
+fi
+
+#修复quickstart温度显示
+QUICKSTART_FILE="../package/luci-app-quickstart/luasrc/controller/istore_backend.lua"
+QUICKSTART_URL="https://gist.githubusercontent.com/puteulanus/1c180fae6bccd25e57eb6d30b7aa28aa/raw/istore_backend.lua"
+
+if wget -O "$QUICKSTART_FILE" "$QUICKSTART_URL"; then
+    echo "quickstart温度显示已成功修复！"
+else
+    echo "错误：无法下载quickstart文件,请检查URL和网络连接。"
+	exit 1
+fi
 
 # 安装opkg distfeeds
 emortal_def_dir="$GITHUB_WORKSPACE/wrt/package/emortal/default-settings"
