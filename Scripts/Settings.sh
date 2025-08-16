@@ -24,8 +24,8 @@ elif [ -f "$WIFI_UC" ]; then
 	#修改WIFI加密
 	sed -i "s/encryption='.*'/encryption='psk2+ccmp'/g" $WIFI_UC
  	#开启MU-MIMO和设定功率20
-    sed -i "/set \${s}.disabled='0'/a \n\
-            set \${s}.mu_beamformer='1'\n\
+    sed -i "/set \${s}.disabled='0'/a \
+            set \${s}.mu_beamformer='1'\
             set \${s}.txpower='20'" $WIFI_UC
 fi
 
