@@ -68,6 +68,12 @@ if [[ "${WRT_TARGET^^}" == *"QUALCOMMAX"* ]]; then
 	fi
 fi
 
+# 关闭dns重定向
+dhcp_file="./package/network/services/dnsmasq/files/dhcp.conf"
+if [ -f "$dhcp_file" ]; then
+    sed -i "s/option dns_redirect\t1/option dns_redirect\t0/g" "$dhcp_file"
+fi
+	
 #以下为添加dae支持
 conde_file="./target/linux/qualcommax/ipq60xx/config-default"
 if [ -f "$conde_file" ]; then
