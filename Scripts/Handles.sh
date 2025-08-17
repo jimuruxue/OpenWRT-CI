@@ -79,20 +79,6 @@ if [ -f "$DM_FILE" ]; then
 	cd $PKG_PATH && echo "diskman已被修复!"
 fi
 
-# 自定义v2ray-geodata下载
-V2RAY_FILE="../feeds/packages/net/v2ray-geodata"
-MF_FILE="$GITHUB_WORKSPACE/package/v2ray-geodata/Makefile"
-SH_FILE="$GITHUB_WORKSPACE/package/v2ray-geodata/init.sh"
-UP_FILE="$GITHUB_WORKSPACE/package/v2ray-geodata/v2ray-geodata-updater"
-if [ -d "$V2RAY_FILE" ]; then
-
-	cp -f "$MF_FILE" "$V2RAY_FILE/Makefile"
-	cp -f "$SH_FILE" "$V2RAY_FILE/init.sh"
-	cp -f "$UP_FILE" "$V2RAY_FILE/v2ray-geodata-updater"
-
-	cd $PKG_PATH && echo "v2ray-geodata自定义成功!"
-fi
-
 #设置nginx默认配置
 NGINX_FILE="../feeds/packages/net/nginx-util/files/nginx.config"
 NGINX_URL="https://gist.githubusercontent.com/huanchenshang/df9dc4e13c6b2cd74e05227051dca0a9/raw/nginx.default.config"
