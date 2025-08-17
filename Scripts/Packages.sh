@@ -122,3 +122,7 @@ UPDATE_VERSION() {
 #UPDATE_VERSION "sing-box"
 #UPDATE_VERSION "tailscale"
 
+#删除官源插件
+rm -rf ../feeds/packages/net/v2ray-geodata
+#复制package目录下文件到编译目录
+cp -r $GITHUB_WORKSPACE/package/* ../wrt/package/emortal
