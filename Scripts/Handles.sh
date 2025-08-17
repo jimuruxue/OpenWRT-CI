@@ -9,7 +9,7 @@ if [ -f "$ARGON_FILE" ]; then
  
     cp -f "$DIY_FILE" "$ARGON_FILE"
 
-	cd $PKG_PATH && echo "argon主题参数设置成功!"
+	echo "argon主题参数设置成功!"
 fi
 
 #修改qca-nss-drv启动顺序
@@ -18,7 +18,7 @@ if [ -f "$NSS_DRV" ]; then
 
 	sed -i 's/START=.*/START=85/g' $NSS_DRV
 
-	cd $PKG_PATH && echo "qca-nss-drv已被修复!"
+	echo "qca-nss-drv已被修复!"
 fi
 
 #修改qca-nss-pbuf启动顺序
@@ -27,7 +27,7 @@ if [ -f "$NSS_PBUF" ]; then
 
 	sed -i 's/START=.*/START=86/g' $NSS_PBUF
 
-	cd $PKG_PATH && echo "qca-nss-pbuf已被修复!"
+	echo "qca-nss-pbuf已被修复!"
 fi
 
 #修复TailScale配置文件冲突
@@ -36,7 +36,7 @@ if [ -f "$TS_FILE" ]; then
 
 	sed -i '/\/files/d' $TS_FILE
 
-	cd $PKG_PATH && echo "tailscale已被修复!"
+	echo "tailscale已被修复!"
 fi
 
 #修复Rust编译失败
@@ -45,7 +45,7 @@ if [ -f "$RUST_FILE" ]; then
 
 	sed -i 's/ci-llvm=true/ci-llvm=false/g' $RUST_FILE
 
-	cd $PKG_PATH && echo "rust已被修复!"
+	echo "rust已被修复!"
 fi
 
 #修复DiskMan编译失败
@@ -55,7 +55,7 @@ if [ -f "$DM_FILE" ]; then
 	sed -i 's/fs-ntfs/fs-ntfs3/g' $DM_FILE
     sed -i '/ntfs-3g-utils /d' $DM_FILE
     sed -i '/config PACKAGE_$(PKG_NAME)_INCLUDE_ntfs_3g_utils/,/default y/d' "$DM_FILE"
-	cd $PKG_PATH && echo "diskman已被修复!"
+	echo "diskman已被修复!"
 fi
 
 #设置nginx默认配置
@@ -99,7 +99,7 @@ EOF
     sed -i "/exit 0/i\\
 [ -f \'/etc/99-distfeeds.conf\' ] && mv \'/etc/99-distfeeds.conf\' \'/etc/opkg/distfeeds.conf\'\n\
 sed -ri \'/check_signature/s@^[^#]@#&@\' /etc/opkg.conf\n" $emortal_def_dir/files/99-default-settings
-	cd $PKG_PATH && echo "软件源修改成功!"
+	echo "软件源修改成功!"
 fi
 
 #修改CPU 性能优化调节名称显示
@@ -108,7 +108,7 @@ po_file="$cpu_path/po/zh_Hans/cpufreq.po"
 
 if [ -d "$cpu_path" ] && [ -f "$po_file" ]; then
     sed -i 's/msgstr "CPU 性能优化调节"/msgstr "性能调节"/g' "$po_file"
-    cd $PKG_PATH && echo "cpu调节更名成功"
+    echo "cpu调节更名成功"
 else
     echo "cpufreq.po文件未找到"
 fi
@@ -119,7 +119,7 @@ argonpo_file="$argon_path/po/zh_Hans/argon-config.po"
 
 if [ -d "$argon_path" ] && [ -f "$argonpo_file" ]; then
     sed -i 's/msgstr "Argon 主题设置"/msgstr "主题设置"/g' "$argonpo_file"
-    cd $PKG_PATH && echo "主题设置更名成功"
+    echo "主题设置更名成功"
 else
     echo "argon-config.po文件没有找到"
 fi
@@ -140,7 +140,7 @@ if [ -f "$makefile_path" ]; then
 \telse \\\
 \t\t\$(INSTALL_BIN) \$(PKG_BUILD_DIR)\/quickfile-aarch64_generic \$(1)\/usr\/bin\/quickfile; \\\
 \tfi' "$makefile_path"
-	cd $PKG_PATH && echo "quickfie添加成功!"
+	echo "quickfie添加成功!"
 fi
 
 #更换argon源
@@ -154,7 +154,7 @@ tmp_dir=$(mktemp -d)
     rm -rf "$tmp_dir/.git"
     mv "$tmp_dir" "$dst_theme_path"
 
-    cd $PKG_PATH && echo "luci-theme-argon 更新完成"
+    echo "luci-theme-argon 更新完成"
 
 #修改argon背景图片
 theme_path="$GITHUB_WORKSPACE/wrt/feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/background"
@@ -164,7 +164,7 @@ target_file="$theme_path/bg1.jpg"
 
 if [ -f "$source_file" ]; then
     cp -f "$source_file" "$target_file"
-    cd $PKG_PATH && echo "背景图片更新成功"
+    echo "背景图片更新成功"
 else
     echo "错误：未找到源图片文件"
 fi
@@ -186,7 +186,7 @@ boot() {
 }
 EOF
     chmod +x "$sh_dir/custom_task"
-    cd $PKG_PATH && echo "添加定时清理内存成功!"
+    echo "添加定时清理内存成功!"
 else
     echo "添加定时清理内存出错"
 fi
@@ -198,5 +198,5 @@ if [ ! -f "$BBR_CONF_PATH" ]; then
 net.core.default_qdisc=fq
 net.ipv4.tcp_congestion_control=bbr
 EOF
-    cd $PKG_PATH && echo "BBR 配置文件创建成功！"
+    echo "BBR 配置文件创建成功！"
 fi
