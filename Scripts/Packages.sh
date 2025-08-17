@@ -125,4 +125,4 @@ UPDATE_VERSION() {
 #删除官源插件
 rm -rf ../feeds/packages/net/v2ray-geodata
 #复制package目录下文件到编译目录
-cp -r $GITHUB_WORKSPACE/package/* ../wrt/package/emortal
+cp -r $GITHUB_WORKSPACE/package/* ./emortal
