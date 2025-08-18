@@ -1,5 +1,5 @@
 # OpenWRT-CI
-云编译OpenWRT固件，开启内核eBPF，支持dae内核级透明代理,启用bbr加速    
+云编译OpenWRT固件，开启内核eBPF，支持dae内核级透明代理        
 
 v2ray-geodata使用MetaCubeX的geosite和geoip，分流更精细  
 https://github.com/MetaCubeX/meta-rules-dat  
