@@ -169,6 +169,19 @@ else
     echo "错误：未找到源图片文件"
 fi
 
+#修改automount自动加载和修复ntfs硬盘显示中文
+fstools_path="$GITHUB_WORKSPACE/wrt/package/system/fstools/patches"
+automount_file="$GITHUB_WORKSPACE/files/0100-automount.patch"
+ntfs_file="$GITHUB_WORKSPACE/files/0200-ntfs3-with-utf8.patch"
+
+if [ -d "$fstools_path" ]; then
+    cp -f "$automount_file" "$fstools_path"
+	cp -f "$ntfs_file" "$fstools_path"
+    echo "修改automount自动加载和修复ntfs硬盘显示中文成功"
+else
+    echo "错误：修改automount和ntfs中文失败"
+fi
+
 #添加定时清理内存
 sh_dir="$PKG_PATH/base-files/files/etc/init.d"
 if [ -d "$sh_dir" ]; then
