@@ -1,7 +1,5 @@
 #!/bin/bash
 
-PKG_PATH="$GITHUB_WORKSPACE/wrt/package/"
-
 #修改argon主题设置
 ARGON_FILE="$GITHUB_WORKSPACE/wrt/feeds/luci/applications/luci-app-argon-config/root/etc/config/argon"
 DIY_FILE="$GITHUB_WORKSPACE/files/etc/config/argon"
