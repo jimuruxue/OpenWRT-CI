@@ -155,7 +155,7 @@ tmp_dir=$(mktemp -d)
     echo "luci-theme-argon 更新完成"
 
 #修改argon背景图片
-theme_path="$GITHUB_WORKSPACE/wrt/feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/background"
+theme_path="$GITHUB_WORKSPACE/wrt/feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/img"
 source_path="$GITHUB_WORKSPACE/images"
 source_file="$source_path/bg1.jpg"
 target_file="$theme_path/bg1.jpg"
