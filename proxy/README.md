@@ -1,3 +1,7 @@
+将配置文件中的机场名字和订阅链接替换成自己的即可到手即用  
 
+使用momo.json需将sing-box替换成支持providers版本的执行文件，文件以提供，替换路径/usr/bin  
 
+使用config.dae需将'50 mbps'和'200 mbps'调整成自己宽带的上传和下载速度  
 
+dae,momo,nikki均使用MetaCubeX的规则集，如需自定义可参考文件格式自行添加  
