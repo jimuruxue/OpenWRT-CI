@@ -1,5 +1,27 @@
 #!/bin/bash
 
+#预置HomeProxy数据
+if [ -d *"homeproxy"* ]; then
+	echo " "
+
+	HP_RULE="surge"
+	HP_PATH="homeproxy/root/etc/homeproxy"
+
+	rm -rf ./$HP_PATH/resources/*
+
+	git clone -q --depth=1 --single-branch --branch "release" "https://github.com/Loyalsoldier/surge-rules.git" ./$HP_RULE/
+	cd ./$HP_RULE/ && RES_VER=$(git log -1 --pretty=format:'%s' | grep -o "[0-9]*")
+
+	echo $RES_VER | tee china_ip4.ver china_ip6.ver china_list.ver gfw_list.ver
+	awk -F, '/^IP-CIDR,/{print $2 > "china_ip4.txt"} /^IP-CIDR6,/{print $2 > "china_ip6.txt"}' cncidr.txt
+	sed 's/^\.//g' direct.txt > china_list.txt ; sed 's/^\.//g' gfw.txt > gfw_list.txt
+	mv -f ./{china_*,gfw_list}.{ver,txt} ../$HP_PATH/resources/
+
+	cd .. && rm -rf ./$HP_RULE/
+
+	echo "homeproxy数据更新成功!"
+fi
+
 #修改argon主题设置
 ARGON_FILE="$GITHUB_WORKSPACE/wrt/feeds/luci/applications/luci-app-argon-config/root/etc/config/argon"
 DIY_FILE="$GITHUB_WORKSPACE/files/etc/config/argon"
