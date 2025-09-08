@@ -24,6 +24,8 @@ Config——自定义配置
 
 images——自定义背景图片  
 
+package——自定义软件包  
+
 proxy——dae,momo,nikki配置文件
 
 
