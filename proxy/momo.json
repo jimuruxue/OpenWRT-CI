@@ -10,6 +10,7 @@
       "type": "remote",
       "tag": "🛫 机场名字",
       "url": "订阅链接",
+      "exclude": "官网|剩余|套餐|群",
       "download_detour": "🟢 直连",
       "update_interval": "12h",
       "path": "./providers/airport1.json",
