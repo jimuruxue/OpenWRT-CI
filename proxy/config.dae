@@ -41,9 +41,9 @@ routing {
   pname(NetworkManager, systemd-resolved, dnsmasq) -> must_direct
   dip(224.0.0.0/3, 'ff00::/8') -> direct
   l4proto(udp) && dport(443) -> block
-  domain(keyword: haijiao) -> proxy
   domain(suffix: steamcdn-a.akamaihd.net, cm.steampowered.com, steamserver.net, wogg.xxooo.cf) -> direct
   domain(geosite:spotify) -> sg
   dip(geoip:private, geoip:cn) -> direct
+  domain(geosite:cn) -> direct
   fallback: proxy
 }
