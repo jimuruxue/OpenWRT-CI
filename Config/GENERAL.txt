@@ -142,5 +142,5 @@ CONFIG_LUCI_LANG_zh_Hans=y
 CONFIG_PACKAGE_default-settings=y
 CONFIG_PACKAGE_default-settings-chn=y
 CONFIG_PACKAGE_bash=y
-# CONFIG_PACKAGE_luci-app-sqm is not set
-# CONFIG_PACKAGE_sqm-scripts is not set
+CONFIG_PACKAGE_luci-app-sqm=n
+CONFIG_PACKAGE_sqm-scripts=n
