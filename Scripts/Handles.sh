@@ -67,17 +67,6 @@ else
 	exit 1
 fi
 
-#修复quickstart温度显示
-QUICKSTART_FILE="../package/luci-app-quickstart/luasrc/controller/istore_backend.lua"
-QUICKSTART_URL="https://gist.githubusercontent.com/puteulanus/1c180fae6bccd25e57eb6d30b7aa28aa/raw/istore_backend.lua"
-
-if wget -O "$QUICKSTART_FILE" "$QUICKSTART_URL"; then
-    echo "quickstart温度显示已成功修复！"
-else
-    echo "错误：无法下载quickstart文件,请检查URL和网络连接。"
-	exit 1
-fi
-
 #修改CPU 性能优化调节名称显示
 cpu_path="$GITHUB_WORKSPACE/wrt/feeds/luci/applications/luci-app-cpufreq"
 po_file="$cpu_path/po/zh_Hans/cpufreq.po"
