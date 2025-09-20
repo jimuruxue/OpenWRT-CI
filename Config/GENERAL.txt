@@ -16,7 +16,6 @@ CONFIG_PACKAGE_luci-app-hd-idle=y
 CONFIG_PACKAGE_luci-app-ramfree=y
 CONFIG_PACKAGE_luci-app-ttyd=y
 CONFIG_PACKAGE_luci-app-unishare=y
-CONFIG_PACKAGE_luci-app-istorex=y
 CONFIG_PACKAGE_luci-app-quickfile=y
 CONFIG_PACKAGE_luci-app-cpufreq=y
 #删除插件
@@ -30,10 +29,6 @@ CONFIG_DEVEL=y
 CONFIG_TARGET_MULTI_PROFILE=y
 CONFIG_TARGET_PER_DEVICE_ROOTFS=y
 CONFIG_TARGET_ROOTFS_INITRAMFS=n
-# 使用opkg替换apk安装器
-CONFIG_USE_APK=n
-CONFIG_PACKAGE_opkg=y
-CONFIG_OPKG_USE_CURL=y
 #内核调整
 CONFIG_PACKAGE_kmod-dsa=y
 CONFIG_PACKAGE_kmod-fs-btrfs=y
