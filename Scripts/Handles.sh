@@ -133,7 +133,7 @@ tmp_dir=$(mktemp -d)
     echo "luci-theme-argon 更新完成"
 
 #修改argon背景图片
-theme_path="$GITHUB_WORKSPACE/wrt/feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/background"
+theme_path="$GITHUB_WORKSPACE/wrt/feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/img"
 source_path="$GITHUB_WORKSPACE/images"
 source_file="$source_path/bg1.jpg"
 target_file="$theme_path/bg1.jpg"
@@ -180,35 +180,13 @@ else
     echo "添加定时清理内存出错"
 fi
 
-# 替换sing-box版本为reF1nd
-#SINGBOX_MAKEFILE_PATH="$GITHUB_WORKSPACE/wrt/feeds/packages/net/sing-box/Makefile"
-#CUSTOM_SINGBOX_PATH="$GITHUB_WORKSPACE/files/sing-box"
-# 检查文件和目录是否存在
-#if [ ! -f "$CUSTOM_SINGBOX_PATH" ]; then
-#    echo "错误：自定义文件 $CUSTOM_SINGBOX_PATH 不存在。"
-#    exit 1
-#fi
-#
-#if [ ! -f "$SINGBOX_MAKEFILE_PATH" ]; then
-#    echo "错误：sing-box 的 Makefile 文件 $SINGBOX_MAKEFILE_PATH 不存在。"
-#    exit 1
-#fi
-#
-# 检查自定义文件是否可执行，如果不是，则添加执行权限
-#if [ ! -x "$CUSTOM_SINGBOX_PATH" ]; then
-#    chmod +x "$CUSTOM_SINGBOX_PATH"
-#fi
-#
-# 定义要注入到 Makefile 的替换命令
-#REPLACE_COMMAND="\$(CP) $CUSTOM_SINGBOX_PATH \$(1)/usr/bin/sing-box"
-#
-# 使用 sed 命令将替换命令添加到 Makefile 的 install 块末尾
-# 这个 sed 命令会在 'endef' 行的前面插入你的命令
-#if sed -i "/^endef/i\\t$REPLACE_COMMAND" "$SINGBOX_MAKEFILE_PATH"; then
-#    echo "成功：已将自定义 sing-box 替换命令注入到 Makefile。"
-#else
-#    echo "错误：无法修改 Makefile 文件。"
-#    exit 1
-#fi
-#
-#echo "提示：请确保你的自定义 sing-box 文件是与目标设备架构兼容的。"
+#设置使用bbr加速
+BBR_CONF_PATH="$PKG_PATH/base-files/files/etc/sysctl.d/10-bbr.conf"
+if [ ! -f "$BBR_CONF_PATH" ]; then
+    cat <<'EOF' >"$BBR_CONF_PATH"
+net.core.default_qdisc=fq
+#net.ipv4.tcp_congestion_control=bbr
+EOF
+    echo "BBR 配置文件创建成功！"
+fi
+
