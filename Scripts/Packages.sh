@@ -62,6 +62,9 @@ UPDATE_PACKAGE "diskman" "lisaac/luci-app-diskman" "master"
 #UPDATE_PACKAGE "luci-app-sms-tool-js" "4IceG/luci-app-sms-tool-js" "main"
 #UPDATE_PACKAGE "luci-app-3ginfo-lite" "4IceG/luci-app-3ginfo-lite" "main"
 
+# qmodem
+UPDATE_PACKAGE "qmodem" "FUjr/QModem" "main"
+
 # unishare
 UPDATE_PACKAGE "webdav2" "kenzok8/small-package" "main" "pkg"
 UPDATE_PACKAGE "unishare" "kenzok8/small-package" "main" "pkg"
