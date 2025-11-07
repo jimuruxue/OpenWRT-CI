@@ -46,7 +46,7 @@ UPDATE_PACKAGE() {
 
 # UPDATE_PACKAGE "包名" "项目地址" "项目分支" "pkg/name，可选，pkg为从大杂烩中单独提取包名插件；name为重命名为包名"
 # proxy
-UPDATE_PACKAGE "momo" "nikkinikki-org/OpenWrt-momo" "main"
+#UPDATE_PACKAGE "momo" "nikkinikki-org/OpenWrt-momo" "main"
 UPDATE_PACKAGE "nikki" "nikkinikki-org/OpenWrt-nikki" "main"
 #UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev" "pkg"
 #UPDATE_PACKAGE "passwall" "xiaorouji/openwrt-passwall" "main" "pkg"
@@ -54,7 +54,7 @@ UPDATE_PACKAGE "nikki" "nikkinikki-org/OpenWrt-nikki" "main"
 #UPDATE_PACKAGE "luci-app-daed" "QiuSimons/luci-app-daed" "master"
 
 #UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
-UPDATE_PACKAGE "diskman" "lisaac/luci-app-diskman" "master"
+#UPDATE_PACKAGE "diskman" "lisaac/luci-app-diskman" "master"
 #UPDATE_PACKAGE "easytier" "EasyTier/luci-app-easytier" "main"
 #UPDATE_PACKAGE "fancontrol" "rockjake/luci-app-fancontrol" "main"
 #UPDATE_PACKAGE "openlist2" "sbwml/luci-app-openlist2" "main"
