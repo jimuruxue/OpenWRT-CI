@@ -142,7 +142,7 @@ if [ -f "$makefile_path" ]; then
 fi
 
 #更换argon源
-argon_url="https://github.com/huanchenshang/luci-theme-argon.git"
+argon_url="https://github.com/ZqinKing/luci-theme-argon.git"
 dst_theme_path="../feeds/luci/themes/luci-theme-argon"
 tmp_dir=$(mktemp -d)
 
