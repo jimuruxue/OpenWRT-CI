@@ -56,16 +56,6 @@ if [ -f "$DM_FILE" ]; then
 	echo "diskman已被修复!"
 fi
 
-#移除luci-app-attendedsysupgrade概览页面
-ASU_FILE=$(find ../feeds/luci/applications/luci-app-attendedsysupgrade/ -type f -name "11_upgrades.js")
-if [ -f "$ASU_FILE" ]; then
-	echo " "
-
-	rm -rf $ASU_FILE
-
-	cd $PKG_PATH && echo "attendedsysupgrade has been fixed!"
-fi
-
 #设置nginx默认配置
 #NGINX_FILE="../feeds/packages/net/nginx-util/files/nginx.config"
 #NGINX_URL="https://gist.githubusercontent.com/huanchenshang/df9dc4e13c6b2cd74e05227051dca0a9/raw/nginx.default.config"
