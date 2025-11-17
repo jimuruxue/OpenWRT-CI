@@ -56,6 +56,18 @@ if [ -f "$DM_FILE" ]; then
 	echo "diskman已被修复!"
 fi
 
+#去除luci-app-attendedsysupgrade
+LUCI_MAKEFILE="../feeds/luci/collections/luci/Makefile"
+
+if [ -f "$LUCI_MAKEFILE" ]; then
+
+    sed -i '/+luci-app-attendedsysupgrade/d' "$LUCI_MAKEFILE"
+    
+    echo "luci-app-attendedsysupgrade 已删除！"
+else
+    echo "删除失败文件没有找到"
+fi
+
 #设置nginx默认配置
 #NGINX_FILE="../feeds/packages/net/nginx-util/files/nginx.config"
 #NGINX_URL="https://gist.githubusercontent.com/huanchenshang/df9dc4e13c6b2cd74e05227051dca0a9/raw/nginx.default.config"
