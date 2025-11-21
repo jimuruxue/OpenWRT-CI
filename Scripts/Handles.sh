@@ -79,17 +79,6 @@ fi
 #	exit 1
 #fi
 
-#修复quickstart温度显示
-#QUICKSTART_FILE="../package/luci-app-quickstart/luasrc/controller/istore_backend.lua"
-#QUICKSTART_URL="https://gist.githubusercontent.com/puteulanus/1c180fae6bccd25e57eb6d30b7aa28aa/raw/istore_backend.lua"
-
-#if wget -O "$QUICKSTART_FILE" "$QUICKSTART_URL"; then
-#    echo "quickstart温度显示已成功修复！"
-#else
-#    echo "错误：无法下载quickstart文件,请检查URL和网络连接。"
-#	exit 1
-#fi
-
 # 安装opkg distfeeds
 emortal_def_dir="$GITHUB_WORKSPACE/wrt/package/emortal/default-settings"
 distfeeds_conf="$emortal_def_dir/files/99-distfeeds.conf"
@@ -154,7 +143,8 @@ if [ -f "$makefile_path" ]; then
 fi
 
 #更换argon源
-argon_url="https://github.com/ZqinKing/luci-theme-argon.git"
+#argon_url="https://github.com/ZqinKing/luci-theme-argon.git"
+argon_url="https://github.com/huanchenshang/luci-theme-argon.git"
 dst_theme_path="../feeds/luci/themes/luci-theme-argon"
 tmp_dir=$(mktemp -d)
 
