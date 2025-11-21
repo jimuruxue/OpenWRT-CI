@@ -205,7 +205,7 @@ else
 fi
 
 #设置使用bbr加速
-BBR_CONF_PATH="$PKG_PATH/base-files/files/etc/sysctl.d/10-bbr.conf"
+BBR_CONF_PATH="$GITHUB_WORKSPACE/wrt/package/base-files/files/etc/sysctl.d/10-bbr.conf"
 if [ ! -f "$BBR_CONF_PATH" ]; then
     cat <<'EOF' >"$BBR_CONF_PATH"
 net.core.default_qdisc=fq
@@ -213,4 +213,3 @@ net.core.default_qdisc=fq
 EOF
     echo "BBR 配置文件创建成功！"
 fi
-
