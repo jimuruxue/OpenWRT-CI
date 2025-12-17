@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# 修改 ttyd 为免密自动登录
+find ./feeds -name "ttyd.config" -exec sed -i 's|/bin/login|/bin/login -f root|g' {} +
 #修改默认主题
 sed -i "s/luci-theme-bootstrap/luci-theme-$WRT_THEME/g" $(find ./feeds/luci/collections/ -type f -name "Makefile")
 #修改immortalwrt.lan关联IP
