@@ -144,15 +144,15 @@ jobs:
             echo "caches cleanup done!"
           fi
 
-      #- name: Update Feeds
-        #run: |
-          #cd ./wrt/
+      - name: Update Feeds
+        run: |
+          cd ./wrt/
 
           #echo >> feeds.conf.default
           #echo 'src-git istore https://github.com/linkease/istore;main' >> feeds.conf.default
           
-          #./scripts/feeds update -a
-          #./scripts/feeds install -a
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
 
       - name: Custom Packages
         run: |
