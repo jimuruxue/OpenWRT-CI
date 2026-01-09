@@ -68,6 +68,38 @@ else
     echo "删除失败文件没有找到"
 fi
 
+# 精简passwall：
+PASSWALL_MAKEFILE="../feeds/luci/applications/luci-app-passwall/Makefile"
+
+if [ -f "$PASSWALL_MAKEFILE" ]; then
+    sed -i '/CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Haproxy/d' "$PASSWALL_MAKEFILE"
+    sed -i '/CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Hysteria/d' "$PASSWALL_MAKEFILE"
+    sed -i '/CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_NaiveProxy/d' "$PASSWALL_MAKEFILE"
+    sed -i '/CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Rust_/d' "$PASSWALL_MAKEFILE"
+    sed -i '/CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Shadow_TLS/d' "$PASSWALL_MAKEFILE"
+    sed -i '/CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Simple_Obfs/d' "$PASSWALL_MAKEFILE"
+    sed -i '/CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_tuic_client/d' "$PASSWALL_MAKEFILE"
+    sed -i '/CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_V2ray_Plugin/d' "$PASSWALL_MAKEFILE"
+    sed -i '/CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Xray/d' "$PASSWALL_MAKEFILE"
+    sed -i '/CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Xray_Plugin/d' "$PASSWALL_MAKEFILE"
+
+    sed -i '/PACKAGE_$(PKG_NAME)_INCLUDE_Brook:brook/d' "$PASSWALL_MAKEFILE"
+    sed -i '/PACKAGE_$(PKG_NAME)_INCLUDE_Haproxy:haproxy/d' "$PASSWALL_MAKEFILE"
+    sed -i '/PACKAGE_$(PKG_NAME)_INCLUDE_Hysteria:hysteria/d' "$PASSWALL_MAKEFILE"
+    sed -i '/PACKAGE_$(PKG_NAME)_INCLUDE_NaiveProxy:naiveproxy/d' "$PASSWALL_MAKEFILE"
+    sed -i '/PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Rust_/d' "$PASSWALL_MAKEFILE"
+    sed -i '/PACKAGE_$(PKG_NAME)_INCLUDE_Shadow_TLS:shadow-tls/d' "$PASSWALL_MAKEFILE"
+    sed -i '/PACKAGE_$(PKG_NAME)_INCLUDE_Simple_Obfs:simple-obfs/d' "$PASSWALL_MAKEFILE"
+    sed -i '/PACKAGE_$(PKG_NAME)_INCLUDE_tuic_client:tuic-client/d' "$PASSWALL_MAKEFILE"
+    sed -i '/PACKAGE_$(PKG_NAME)_INCLUDE_V2ray_Plugin:v2ray-plugin/d' "$PASSWALL_MAKEFILE"
+    sed -i '/PACKAGE_$(PKG_NAME)_INCLUDE_Xray:xray-core/d' "$PASSWALL_MAKEFILE"
+    sed -i '/PACKAGE_$(PKG_NAME)_INCLUDE_Xray_Plugin:xray-plugin/d' "$PASSWALL_MAKEFILE"
+
+    echo "PassWall 已精简，只保留 Sing-box + Geo 支持！"
+else
+    echo "文件未找到，请检查路径：$PASSWALL_MAKEFILE"
+fi
+
 #设置nginx默认配置
 NGINX_FILE="../feeds/packages/net/nginx-util/files/nginx.config"
 NGINX_URL="https://gist.githubusercontent.com/huanchenshang/df9dc4e13c6b2cd74e05227051dca0a9/raw/nginx.default.config"
