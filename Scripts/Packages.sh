@@ -59,9 +59,9 @@ UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
 #UPDATE_PACKAGE "openlist2" "sbwml/luci-app-openlist2" "main"
 
 # unishare
-UPDATE_PACKAGE "webdav2" "kenzok8/small-package" "main" "pkg"
-UPDATE_PACKAGE "unishare" "kenzok8/small-package" "main" "pkg"
-UPDATE_PACKAGE "luci-app-unishare" "kenzok8/small-package" "main" "pkg"
+UPDATE_PACKAGE "webdav2" "kenzok8/jell" "main" "pkg"
+UPDATE_PACKAGE "unishare" "kenzok8/jell" "main" "pkg"
+UPDATE_PACKAGE "luci-app-unishare" "kenzok8/jell" "main" "pkg"
 
 #更新软件包版本
 UPDATE_VERSION() {
