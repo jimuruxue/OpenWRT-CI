@@ -50,11 +50,10 @@ UPDATE_PACKAGE() {
 UPDATE_PACKAGE "nikki" "nikkinikki-org/OpenWrt-nikki" "main"
 UPDATE_PACKAGE "momo" "nikkinikki-org/OpenWrt-momo" "main"
 #UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev" "pkg"
+UPDATE_PACKAGE "luci-app-daed" "QiuSimons/luci-app-daed" "kix"
 #UPDATE_PACKAGE "passwall" "xiaorouji/openwrt-passwall" "main" "pkg"
 #UPDATE_PACKAGE "passwall2" "xiaorouji/openwrt-passwall2" "main" "pkg"
-#UPDATE_PACKAGE "daed" "QiuSimons/luci-app-daed" "master"
-
-UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
+#UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
 #UPDATE_PACKAGE "diskman" "lisaac/luci-app-diskman" "master"
 #UPDATE_PACKAGE "easytier" "EasyTier/luci-app-easytier" "main"
 #UPDATE_PACKAGE "openlist2" "sbwml/luci-app-openlist2" "main"
@@ -109,8 +108,18 @@ UPDATE_VERSION() {
 #UPDATE_VERSION "sing-box"
 #UPDATE_VERSION "tailscale"
 
+#引入私有扩展脚本
+if [ -f "$GITHUB_WORKSPACE/Scripts/PRIVATE.sh" ]; then
+	source "$GITHUB_WORKSPACE/Scripts/PRIVATE.sh"
+fi
+
 #删除官源插件
-rm -rf ../feeds/packages/net/v2ray-geodata
-rm -rf ../feeds/packages/net/onionshare-cli
+rm -rf ../feeds/packages/net/{v2ray-geodata,daed}
+rm -rf ../feeds/luci/applications/luci-app-{openclash,daed}
 #复制package目录下文件到编译目录
 cp -r $GITHUB_WORKSPACE/package/* ./emortal
+
+#修复daed/Makefile
+sed -i 's/pnpm install ; \\/pnpm install --no-frozen-lockfile ; \\/g' luci-app-daed/daed/Makefile
+sed -i 's|github.com/daeuniverse/quic-go|github.com/olicesx/quic-go|g' luci-app-daed/daed/Makefile
+sed -i 's|/run/i\\  procd_set_param|/procd_set_param command/i \\\tprocd_set_param|g' luci-app-daed/luci-app-daed/root/etc/init.d/luci_daed
