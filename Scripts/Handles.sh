@@ -111,28 +111,6 @@ else
 	exit 1
 fi
 
-# 安装opkg distfeeds
-#emortal_def_dir="$GITHUB_WORKSPACE/wrt/package/emortal/default-settings"
-#distfeeds_conf="$emortal_def_dir/files/99-distfeeds.conf"
-
-#if [ -d "$emortal_def_dir" ] && [ ! -f "$distfeeds_conf" ]; then
-#    cat <<'EOF' >"$distfeeds_conf"
-#src/gz openwrt_base https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/aarch64_cortex-a53/base/
-#src/gz openwrt_luci https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/aarch64_cortex-a53/luci/
-#src/gz openwrt_packages https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/aarch64_cortex-a53/packages/
-#src/gz openwrt_routing https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/aarch64_cortex-a53/routing/
-#src/gz openwrt_telephony https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/aarch64_cortex-a53/telephony/
-#EOF
-#    sed -i "/define Package\/default-settings\/install/a\\
-#\\t\$(INSTALL_DIR) \$(1)/etc\\n\
-#\t\$(INSTALL_DATA) ./files/99-distfeeds.conf \$(1)/etc/99-distfeeds.conf\n" $emortal_def_dir/Makefile
-
-#    sed -i "/exit 0/i\\
-#[ -f \'/etc/99-distfeeds.conf\' ] && mv \'/etc/99-distfeeds.conf\' \'/etc/opkg/distfeeds.conf\'\n\
-#sed -ri \'/check_signature/s@^[^#]@#&@\' /etc/opkg.conf\n" $emortal_def_dir/files/99-default-settings
-#	echo "软件源修改成功!"
-#fi
-
 #修改CPU 性能优化调节名称显示
 cpu_path="$GITHUB_WORKSPACE/wrt/feeds/luci/applications/luci-app-cpufreq"
 po_file="$cpu_path/po/zh_Hans/cpufreq.po"
@@ -153,25 +131,6 @@ if [ -d "$argon_path" ] && [ -f "$argonpo_file" ]; then
     echo "主题设置更名成功"
 else
     echo "argon-config.po文件没有找到"
-fi
-
-#添加quickfile文件管理
-quickfile_url="https://github.com/sbwml/luci-app-quickfile.git"
-quickfile_dir="$GITHUB_WORKSPACE/wrt/package/emortal/quickfile"
-if [ -d "$quickfile_dir" ]; then
-    rm -rf "$quickfile_dir"
-fi
-git clone --depth 1 "$quickfile_url" "$quickfile_dir"
-
-makefile_path="$quickfile_dir/quickfile/Makefile"
-if [ -f "$makefile_path" ]; then
-    sed -i '/\t\$(INSTALL_BIN) \$(PKG_BUILD_DIR)\/quickfile-\$(ARCH_PACKAGES)/c\
-\tif [ "\$(ARCH_PACKAGES)" = "x86_64" ]; then \\\
-\t\t\$(INSTALL_BIN) \$(PKG_BUILD_DIR)\/quickfile-x86_64 \$(1)\/usr\/bin\/quickfile; \\\
-\telse \\\
-\t\t\$(INSTALL_BIN) \$(PKG_BUILD_DIR)\/quickfile-aarch64_generic \$(1)\/usr\/bin\/quickfile; \\\
-\tfi' "$makefile_path"
-	echo "quickfie添加成功!"
 fi
 
 #更换argon源
