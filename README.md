@@ -7,9 +7,12 @@ https://github.com/MetaCubeX/meta-rules-dat
 京东云亚瑟 AX1800 Pro DAED 需要更换分区表和uboot,具体使用方法详见恩山帖子:  
 https://www.right.com.cn/forum/thread-8402269-1-1.html  
 
+uboot推荐使用高通版-沉心：  
+https://github.com/chenxin527/uboot-ipq60xx-emmc-build.git
+
 # 固件简要说明：
 
-固件每天早上5点自动编译。
+固件每周日早上5点自动编译。
 
 固件信息里的时间为编译开始的时间，方便核对上游源码提交时间。
 
